@@ -3,7 +3,7 @@ import api from '../api/baseUrl';
 
  const Fetchtodo=createAsyncThunk(
     "fetchtodo/gettodo", async () =>{
-        const response = await api.get("/todo");
+        const response = await api.get("/users");
         return response.data;
     }
  )
