@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div>
-      hello world, this is my first react project, and i am so excited to learn it!
+      hello world!
     </div>
   )
 }
