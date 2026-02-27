@@ -7,7 +7,9 @@ function App() {
   return (
     <div className='text-xl font-bold text-center mt-10'>
       hello world!
+      <div>i get it </div>
     </div>
+    
   )
 }
 
