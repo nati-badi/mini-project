@@ -8,7 +8,13 @@ export const fetchTodo = createAsyncThunk(
     return response.data;
   }
 );
-
+ export const addtodo=createAsyncThunk(
+  "todolist/addtodo",
+  async (newTodo) => {
+    const response = await api.post("/users", newTodo);
+    return response.data;
+  }
+);
 const initialState = {
   todos: [],
   loading: false,
@@ -32,7 +38,10 @@ const todolistSlice = createSlice({
       .addCase(fetchTodo.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+      .addCase(addtodo.fulfilled, (state, action) => {
+      state.todos.push(action.payload);
+    })
   },
 });
 
