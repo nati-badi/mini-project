@@ -1,19 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api/baseUrl";
 
-export const fetchTodo = createAsyncThunk(
-  "todolist/fetchTodo",
-  async () => {
-    const response = await api.get("/users");
+export const fetchTodo = createAsyncThunk("todolist/fetchTodo", async () => {
+  const response = await api.get("/users");
+  return response.data;
+});
+export const addtodo = createAsyncThunk("todolist/addtodo", async (newTodo) => {
+  const response = await api.post("/users", newTodo);
+  return response.data;
+});
+
+export const deleteTodo = createAsyncThunk(
+  "todolist/deleteTodo",
+  async (id) => {
+    const response = await api.delete(`/users/${id}`);
     return response.data;
-  }
-);
- export const addtodo=createAsyncThunk(
-  "todolist/addtodo",
-  async (newTodo) => {
-    const response = await api.post("/users", newTodo);
-    return response.data;
-  }
+  },
 );
 const initialState = {
   todos: [],
@@ -40,8 +42,13 @@ const todolistSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addtodo.fulfilled, (state, action) => {
-      state.todos.push(action.payload);
-    })
+        state.todos.push(action.payload);
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.todos = state.todos.filter(
+          (todo) => todo.id !== action.payload.id,
+        );
+      });
   },
 });
 

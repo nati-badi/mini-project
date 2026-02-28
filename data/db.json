@@ -1,16 +1,12 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "Edosa"
+      "id": "4b70",
+      "name": "oliyad"
     },
     {
-      "id": "0069",
-      "name": "olyad"
-    },
-    {
-      "id": "f5bd",
-      "name": "wandimu"
+      "id": "7438",
+      "name": "nati"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

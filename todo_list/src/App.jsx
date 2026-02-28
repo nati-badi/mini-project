@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchTodo, addtodo } from "./feature/todolistSlice";
+import { fetchTodo, addtodo, deleteTodo } from "./feature/todolistSlice";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -16,16 +16,19 @@ function App() {
     e.preventDefault();
 
     const newUser = {
-      name: name
+      name: name,
     };
 
     dispatch(addtodo(newUser));
     setName("");
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteTodo(id));
+  };
+
   return (
     <div className="text-center mt-10">
-
       <form onSubmit={handleSubmit}>
         <input
           value={name}
@@ -33,15 +36,22 @@ function App() {
           placeholder="Enter name"
           className="border p-2"
         />
-        <button className="bg-blue-500 text-white p-2 ml-2">
-          Add
-        </button>
+        <button className="bg-green-500 text-white p-2 ml-2">Add</button>
       </form>
 
       {todos.map((todo) => (
-        <p key={todo.id}>{todo.name}</p>
+        <div className="flex justify-center items-center p-2 mb-2">
+          <p key={todo.id}>
+            {todo.id}: {todo.name}
+          </p>
+          <button
+            className="bg-red-500 text-white p-2 ml-2"
+            onClick={() => handleDelete(todo.id)}
+          >
+            Delete
+          </button>
+        </div>
       ))}
-      
     </div>
   );
 }
