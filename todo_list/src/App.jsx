@@ -1,16 +1,10 @@
-import { useState } from 'react'
-
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const todo = useSelector((state) => state.todos.todo);
 
-  return (
-    <div className='text-xl font-bold text-center mt-10'>
-      hello world!
-      <div>i get it </div>
-    </div>
-    
-  )
+  return <div className="text-xl font-bold text-center mt-10">{todo}</div>;
 }
 
-export default App
+export default App;
