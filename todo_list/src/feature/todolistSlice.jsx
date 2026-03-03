@@ -15,6 +15,18 @@ export const fetchTodo = createAsyncThunk(
     return response.data;
   }
 );
+export const deleteTodo=createAsyncThunk("todolist/deleteTodo",async(id)=>{
+  await api.delete(`/users/${id}`)
+  return id;
+})
+
+export const updateTodo = createAsyncThunk(
+  "todolist/updateTodo",
+  async ({ id, newdata }) => {
+    const response = await api.patch(`/users/${id}`, newdata);
+    return response.data;
+  }
+);
 const initialState = {
   todos: [],
   loading: false,
@@ -42,7 +54,15 @@ const todolistSlice = createSlice({
       .addCase(addtodo.fulfilled, (state, action) => {
       state.todos.push(action.payload);
     })
-  },
+    .addCase(deleteTodo.fulfilled,(state,action)=>{
+      state.todos=state.todos.filter(todo=>todo.id !==action.payload);
+    })
+ .addCase(updateTodo.fulfilled, (state, action) => {
+  state.todos = state.todos.map(todo =>
+    todo.id === action.payload.id ? action.payload : todo
+  );
+});
+  }
 });
 
 export default todolistSlice.reducer;
